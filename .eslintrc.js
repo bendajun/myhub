@@ -15,5 +15,6 @@ module.exports = {
     semi: ['warn', 'never'],
     quotes: ['warn', 'single'],
     '@typescript-eslint/no-var-requires': 'off', // 除导入语句外，禁止使用require语句
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
   }
 }

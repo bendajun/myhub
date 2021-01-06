@@ -1,11 +1,6 @@
-import Koa from 'koa'
-import { BaseContext } from 'koa'
-const app = new Koa()
+import app from './app/index'
+import envConfig from './app/config'
 
-app.use((ctx: BaseContext) => {
-  ctx.body = 'hello world'
-})
-
-app.listen(8989, () => {
-  console.log('app is running port 8989 ~')
+app.listen(envConfig.APP_PORT, () => {
+  console.log(`app is running port ${envConfig.APP_PORT} ~`)
 })
