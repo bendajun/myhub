@@ -1,5 +1,6 @@
 import fs from 'fs'
 import path from 'path'
+
 import Application = require('koa')
 
 //解析需要遍历的文件夹
@@ -28,10 +29,14 @@ export const handleAllRouters = (filePath: string, app: Application) =>{
             const isDir = stats.isDirectory() // 是文件夹
             if (isFile) {
               // console.log(filedir)
-              const Router = require(filedir)
-              console.log(Router, 1444)
-              app.use(Router.routes())
-              app.use(Router.allowedMethods())
+              
+              import(filedir).then(({ default: Router }) => {
+                console.log(Router, 1444)
+                app.use(Router.routes())
+                app.use(Router.allowedMethods())
+              })
+             
+              
             }
             if (isDir) {
               handleAllRouters(filedir, app) // 递归，如果是文件夹，就继续遍历该文件夹下面的文件

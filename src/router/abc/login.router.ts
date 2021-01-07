@@ -4,7 +4,7 @@ import Router from 'koa-router'
 const userRouter = new Router({ prefix: '/login' })
 
 userRouter.get('/', () => {
-  console.log(123)
+  console.log(456)
 })
 
-export = userRouter
+export default userRouter
