@@ -1,5 +1,5 @@
 import { Context, Next } from 'koa'
-import userService from '../service/user.service'
+import userService from '../../service/login-reg/user'
 // 创建用户的中间件
 const create = (ctx: Context, next: Next) => {
   const user = ctx.request.body
