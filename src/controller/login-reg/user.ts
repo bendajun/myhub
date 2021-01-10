@@ -1,13 +1,22 @@
-import { Context, Next } from 'koa'
+import { Context } from 'koa'
 import userService from '../../service/login-reg/user'
+import { User} from '../../interface/index'
+
 // 创建用户的中间件
-const create = (ctx: Context, next: Next) => {
-  const user = ctx.request.body
-  console.log(user, 1)
-  // 查询数据
-  userService.create('1123')
+const create = async (ctx: Context) => {
+  const user: User = ctx.request.body
+  // 创建用户
+  const res = await userService.create(user)
+  ctx.body = res
+}
+
+const login = async (ctx: Context) => {
+  console.log(123)
+  const { name } = ctx.request.body
+  ctx.body = '登录成功'
 }
 
 export default {
-  create
+  create,
+  login
 }

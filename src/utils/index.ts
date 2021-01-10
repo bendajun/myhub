@@ -1,5 +1,7 @@
 import fs, { Stats } from 'fs'
 import path from 'path'
+import crypto from 'crypto'
+
 import Application = require('koa')
 
 /**
@@ -38,4 +40,11 @@ export const handleAllRouters = (filePath: string, app: Application) => {
       })
     }
   })
+}
+
+// 使用node自带的模块进行md5加密
+export const md5password = password => {
+  const md5 = crypto.createHash('md5')
+  const res = md5.update(password).digest('hex') // 使用node自带的模块进行md5加密，hex表示转换为16进制，这里就得到16进制的字符串展示形式
+  return res
 }
