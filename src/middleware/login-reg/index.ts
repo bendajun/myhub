@@ -48,6 +48,7 @@ export const verifyLogin = async (ctx: Context, next: Next) => {
   if (md5password(password) !== user.password) { // 密码不对
     const error = new Error(LoginRegister.PASSWORD_IS_WRONG)
     return ctx.app.emit('error', error, ctx)
-  } 
+  }
+  ctx.user = user
   await next()
 }

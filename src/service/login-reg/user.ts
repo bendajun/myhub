@@ -4,7 +4,7 @@ import { User } from '../../interface/index'
 // 创建用户
 const create = async (user: User) => {
   const { name, password } = user
-  const statement = 'INSERT INTO users (name, password) VALUES (?, ?)'
+  const statement = 'INSERT INTO user (name, password) VALUES (?, ?)'
   try {
     await connection.execute(statement, [ name, password ])
     return '用户创建成功'
@@ -15,9 +15,13 @@ const create = async (user: User) => {
 
 // 通过名称获取用户
 const getUserByName = async (name: string) => {
-  const statement = 'select * FROM users WHERE name = ?;'
-  const res = await connection.execute(statement, [name])
-  return res[0]
+  try {
+    const statement = 'select * FROM user WHERE name = ?;'
+    const res = await connection.execute(statement, [name])
+    return res[0]
+  } catch(err) {
+    console.log('查询用户时出错')
+  }
 }
 
 export default {
