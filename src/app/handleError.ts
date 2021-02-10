@@ -1,6 +1,7 @@
 import { Context } from 'koa'
 import {
-  LoginRegister
+  LoginRegister,
+  AppErrorTypes
 } from '../constant/error-types'
 
 const handleError = (error, ctx: Context) => {
@@ -23,9 +24,13 @@ const handleError = (error, ctx: Context) => {
       statusCode = 400 //  参数错误，Bad Request 就直接给400
       message = '用户密码不对'
       break
-    case LoginRegister.UNAUTHORIZATION:
+    case LoginRegister.UN_AUTHORIZATION:
       statusCode = 401 //  token过期或者无效，401
       message = '无效的token'
+      break
+    case AppErrorTypes.UN_PERMISSION:
+      statusCode = 401 //  未授权
+      message = '暂无权限'
       break
     default:
       statusCode = 404

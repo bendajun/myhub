@@ -1,4 +1,4 @@
-import connection from '../../app/database'
+import connection from '../app/database'
 
 // 发布动态
 const create = async (userId: string | number, content: string) => {
@@ -28,11 +28,9 @@ const getMomentList = async (offset, size) => {
     const res = await connection.execute(statement, [ String(offset), String(size) ])
     return res[0]
   } catch (err) {
-   console.log(err)
     console.log('获取动态列表出错')
   }
 }
-
 
 // 根据id获取单个动态详情
 const getMomentById = async (momentId: string) => {
@@ -55,8 +53,30 @@ const getMomentById = async (momentId: string) => {
   }
 }
 
+// 根据id修改单个动态
+const updateContentById = async (momentId: string, content) => {
+  try {
+    const statement = 'UPDATE moment SET content = ? WHERE id = ?'
+    await connection.execute(statement, [ content, momentId ])
+  } catch (err) {
+    console.log('根据id修改单个动态出错')
+  }
+}
+
+// 根据id删除单个动态
+const remove = async (momentId: string) => {
+  try {
+    const statement = 'DELETE FROM moment WHERE id = ?'
+    await connection.execute(statement, [ momentId ])
+  } catch (err) {
+    console.log('根据id删除单个动态出错')
+  }
+}
+
 export default {
   create,
   getMomentById,
   getMomentList,
+  updateContentById,
+  remove,
 }

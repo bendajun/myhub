@@ -1,8 +1,9 @@
 import Router from 'koa-router'
-import momentController from '../../controller/moment'
+import momentController from '../controller/moment'
 import {
   verifyAuth,
-} from '../../middleware/index'
+  verifyPermission,
+} from '../middleware/index'
 
 const momentRouter = new Router({ prefix: '/moment' })
 
@@ -15,6 +16,10 @@ momentRouter.get('/', momentController.getList)
 // 获取某条动态
 momentRouter.get('/:momentId', momentController.getDetail)
 
+// 修改某条动态
+momentRouter.post('/update/:momentId',verifyAuth, verifyPermission, momentController.update)
 
+// 删除某条动态
+momentRouter.get('/delete/:momentId',verifyAuth, verifyPermission, momentController.remove)
 
 export default momentRouter

@@ -1,9 +1,9 @@
 import jwt from 'jsonwebtoken'
 import { Context } from 'koa'
-import userService from '../../service/login-reg/user'
-import { User } from '../../interface/index'
-import config from '../../app/config'
-import { TOKEN_TIME } from '../../constant/error-types'
+import userService from '../service/user'
+import { User } from '../interface/index'
+import config from '../app/config'
+import { TOKEN_TIME } from '../constant'
 
 // 创建用户的中间件
 const create = async (ctx: Context) => {

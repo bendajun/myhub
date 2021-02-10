@@ -1,11 +1,11 @@
 import Router from 'koa-router'
-import userController from '../../controller/login-reg/user'
-import { verifyAuth } from '../../middleware/index'
+import userController from '../controller/user'
+import { verifyAuth } from '../middleware/index'
 import {
   verifyUser,
   handlePassword,
   verifyLogin,
-} from '../../middleware/login-reg/index'
+} from '../middleware/loginReg'
 
 const userRouter = new Router({ prefix: '/user' })
 

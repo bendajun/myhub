@@ -1,5 +1,5 @@
-import connection from '../../app/database'
-import { User } from '../../interface/index'
+import connection from '../app/database'
+import { User } from '../interface/index'
 
 // 创建用户
 const create = async (user: User) => {

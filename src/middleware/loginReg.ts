@@ -1,10 +1,10 @@
 import { Context, Next } from 'koa'
-import { LoginRegister } from '../../constant/error-types'
-import userService from '../../service/login-reg/user'
+import { LoginRegister } from '../constant/error-types'
+import userService from '../service/user'
 import {
   md5password
-} from '../../utils/index'
-import { User } from '../../interface/index'
+} from '../utils/index'
+import { User } from '../interface/index'
 
 // 验证参数
 export const verifyUser = async (ctx: Context, next: Next) => {

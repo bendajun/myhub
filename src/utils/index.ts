@@ -21,7 +21,7 @@ export const handleAllRouters = (filePath: string, app: Application) => {
         // 根据文件路径获取文件信息，返回一个fs.Stats对象
         fs.stat(filedir,(err, stats: Stats) => {
           if (err) {
-            console.warn('获取文件stats失败')
+            console.log('获取文件stats失败')
           } else {
             const isFile = stats.isFile() // 是文件
             const isDir = stats.isDirectory() // 是文件夹

@@ -3,8 +3,9 @@ export const enum LoginRegister {
   USER_ALREADY_EXISTS = 'user_already_exists',
   USER_NOT_EXISTS = 'user_not_exists',
   PASSWORD_IS_WRONG = 'password_is_wrong',
-  UNAUTHORIZATION = 'unauthorization'
+  UN_AUTHORIZATION = 'un_authorization'
 }
 
-// token有效时间
-export const TOKEN_TIME = 60 * 60 * 24
+export const enum AppErrorTypes {
+  UN_PERMISSION = 'un_permission'
+}
