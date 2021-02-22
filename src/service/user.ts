@@ -24,7 +24,18 @@ const getUserByName = async (name: string) => {
   }
 }
 
+// 更新头像
+const updateAvatarById = async (avatarUrl: string, userId: number) => {
+  try {
+    const statement = 'UPDATE user SET avatar_url = ? WHERE id = ?'
+    await connection.execute(statement, [avatarUrl, userId])
+  } catch(err) {
+    console.log('更新头像失败')
+  }
+}
+
 export default {
   create,
-  getUserByName
+  getUserByName,
+  updateAvatarById,
 }

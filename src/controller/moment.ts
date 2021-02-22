@@ -1,5 +1,6 @@
 import { Context } from 'koa'
 import momentService from '../service/moment'
+import { IaddLabel } from '../middleware/label'
 
 // 发布动态
 const create = async(ctx: Context) => {
@@ -40,10 +41,24 @@ const remove = async(ctx: Context) => {
   ctx.body = '删除动态成功'
 }
 
+// 给动态添加标签
+const addLabels = async(ctx: Context) => {
+  const labels: IaddLabel[] = ctx.labels
+  const { momentId } = ctx.params
+  for (const label of labels) {
+    const isExist = await momentService.hasLabel(momentId, label.id)
+    if (!isExist) {
+      await momentService.addLabel(momentId, label.id)
+    }
+  }
+  ctx.body = '动态添加标签成功'
+}
+
 export default {
   create,
   getDetail,
   getList,
   update,
   remove,
+  addLabels,
 }

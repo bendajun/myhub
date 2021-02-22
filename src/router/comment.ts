@@ -19,4 +19,7 @@ commentRouter.post('/:commentId/update', verifyAuth, verifyPermission, commentCo
 // 删除自己的评论
 commentRouter.get('/:commentId/remove', verifyAuth, verifyPermission, commentController.remove)
 
+// 获取某条动态的评论信息
+commentRouter.get('/', commentController.getCommentListByMomentId)
+
 export default commentRouter

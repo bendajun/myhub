@@ -15,6 +15,7 @@ userRouter.post('/', verifyUser, handlePassword, userController.create)
 // 登录
 userRouter.post('/login', verifyLogin, userController.login)
 
-userRouter.post('/test', verifyAuth)
+// 获取用户头像
+userRouter.get('/:userId/avatar', /* verifyAuth, */ userController.getUserAvatar)
 
 export default userRouter

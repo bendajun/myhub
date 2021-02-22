@@ -44,9 +44,21 @@ const remove = async (commentId) => {
   }
 }
 
+// 获取某条动态的评论信息
+const getCommentListByMomentId = async (momentId): Promise<any[]> => {
+  try {
+    const statement = 'SELECT * FROM comment WHERE moment_id = ?;'
+    const res = await connection.execute(statement, [ momentId ])
+    return (res[0] as Array<any>)
+  } catch (err) {
+    console.log('删除自己的评论失败')
+  }
+}
+
 export default {
   create,
   reply,
   update,
   remove,
+  getCommentListByMomentId,
 }

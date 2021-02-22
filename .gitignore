@@ -4,7 +4,7 @@
 # Dependency directory
 node_modules
 bower_components
-
+uploads
 # Editors
 .idea
 *.iml

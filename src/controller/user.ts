@@ -1,9 +1,12 @@
+import fs from 'fs'
 import jwt from 'jsonwebtoken'
 import { Context } from 'koa'
 import userService from '../service/user'
+import avatarService from '../service/avatar'
 import { User } from '../interface/index'
 import config from '../app/config'
 import { TOKEN_TIME } from '../constant'
+import { AVATAR_PATH } from '../constant'
 
 // 创建用户的中间件
 const create = async (ctx: Context) => {
@@ -31,7 +34,16 @@ const login = async (ctx: Context) => {
   }
 }
 
+// 获取用户头像
+const getUserAvatar = async (ctx: Context) => {
+  const { userId } = ctx.params
+  const avatarInfo = await avatarService.getUserAvatar(userId)
+  ctx.response.set('content-type', avatarInfo.mimetype) // 不设置这个的话，浏览器会直接下载文件，而不是打开
+  ctx.body = fs.createReadStream(`${AVATAR_PATH}/${avatarInfo.filename}`)
+}
+
 export default {
   create,
-  login
+  login,
+  getUserAvatar,
 }

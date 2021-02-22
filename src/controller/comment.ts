@@ -37,9 +37,17 @@ const remove = async (ctx: Context) => {
   ctx.body = res
 }
 
+// 获取某条动态的评论信息
+const getCommentListByMomentId = async (ctx: Context) => {
+  const { momentId } = ctx.query
+  const res = await commentService.getCommentListByMomentId(momentId)
+  ctx.body = res
+}
+
 export default { 
   create,
   reply,
   update,
   remove,
+  getCommentListByMomentId,
 }

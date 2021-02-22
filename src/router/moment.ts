@@ -4,6 +4,9 @@ import {
   verifyAuth,
   verifyPermission,
 } from '../middleware/index'
+import {
+  verifyLabelExists,
+} from '../middleware/label'
 
 const momentRouter = new Router({ prefix: '/moment' })
 
@@ -21,5 +24,8 @@ momentRouter.post('/update/:momentId',verifyAuth, verifyPermission, momentContro
 
 // 删除某条动态
 momentRouter.get('/delete/:momentId',verifyAuth, verifyPermission, momentController.remove)
+
+// 给动态添加标签
+momentRouter.post('/:momentId/labels',verifyAuth, verifyPermission, verifyLabelExists, momentController.addLabels)
 
 export default momentRouter

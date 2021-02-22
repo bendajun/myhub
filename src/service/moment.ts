@@ -20,7 +20,9 @@ const getMomentList = async (offset, size) => {
         m.content content,
         m.createAt createTime,
         m.updateAt updateTime,
-        JSON_OBJECT('id', u.id, 'name', u.name) user
+        JSON_OBJECT('id', u.id, 'name', u.name, 'avatarUrl', u.avatar_url) user,
+        (SELECT COUNT(*) FROM comment c WHERE c.moment_id = m.id) commentCount,
+        (SELECT COUNT(*) FROM moment_label ml WHERE ml.moment_id = m.id) labelCount
       FROM moment m
       LEFT JOIN user u ON m.user_id = u.id
       LIMIT ?, ?;
@@ -73,10 +75,33 @@ const remove = async (momentId: string) => {
   }
 }
 
+// 判断动态是否具有该标签
+const hasLabel = async (momentId, labelId): Promise<boolean> => {
+  try {
+    const statement = 'SELECT * FROM moment_label WHERE moment_id = ? AND label_id = ?'
+    const [ res ] = await connection.execute(statement, [momentId, labelId])
+    return res[0] ? true : false
+  } catch (err) {
+    console.log('查询动态是否具有某个标签出错')
+  }
+}
+
+// 向某条动态中添加label
+const addLabel = async (momentId, labelId) => {
+  try {
+    const statement = 'INSERT INTO moment_label (moment_id, label_id) VALUES (?, ?)'
+    await connection.execute(statement, [momentId, labelId])
+  } catch (err) {
+    console.log('向某条动态中添加label出错')
+  }
+}
+
 export default {
   create,
   getMomentById,
   getMomentList,
   updateContentById,
   remove,
+  hasLabel,
+  addLabel,
 }
